@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  tissue-tile-quality-filter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tissue-tile-quality-filter:v0.1.0
+    volumes:
+      # Mount input tiles directory
+      - ./example_tiles:/data/input:ro
+      # Mount output directory
+      - ./docker_results:/data/output:rw
+    environment:
+      - PYTHONUNBUFFERED=1
+    # Example command (override with actual command)
+    command: process /data/input/synthetic_tiles --output /data/output --verbose

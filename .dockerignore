@@ -1,0 +1,43 @@
+# Git
+.git/
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.env
+*.egg-info/
+dist/
+build/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+
+# IDE
+.vscode/
+.history/
+
+# Project-specific
+example_tiles/
+kaggle_results/
+test_results/
+demo_results/
+test_output/
+kaggle_test_output/
+results/
+
+# Documentation
+docs/
+
+# CI/CD
+.github/
+
+# OS
+.DS_Store
+*.swp
+*.swo

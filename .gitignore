@@ -21,3 +21,19 @@ wheels/
 
 # Ruff
 .ruff_cache/
+
+# Testing and Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+
+# Generated outputs (DO NOT commit)
+kaggle_results/
+test_results/
+demo_results/
+test_output/
+kaggle_test_output/
+docker_results/
+results/
