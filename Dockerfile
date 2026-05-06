@@ -1,5 +1,5 @@
 # Multi-stage Dockerfile for Tissue Tile Quality Filter
-# Version: 0.1.0
+# Version: 0.1.3
 
 # Stage 1: Build stage
 FROM python:3.11-slim AS builder
@@ -49,7 +49,7 @@ RUN useradd -m -u 1000 appuser && \
     chown -R appuser:appuser /app
 
 LABEL org.opencontainers.image.title="Tissue Tile Quality Filter" \
-      org.opencontainers.image.version="0.1.0" \
+      org.opencontainers.image.version="0.1.3" \
       org.opencontainers.image.description="Production-grade histology tile quality assessment pipeline"
 
 # Set the CLI as the entrypoint
