@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-tissue-tile-quality-filter = "tissue_tile_quality_filter:cli"
+tissue-tile-quality-filter = "tissue_tile_quality_filter.__main__:cli"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/tissue_tile_quality_filter"]
