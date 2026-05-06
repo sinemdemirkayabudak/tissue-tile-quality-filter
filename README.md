@@ -4,8 +4,6 @@ A production-grade Python pipeline for automated quality assessment of histology
 
 ---
 
-**Built with:** Python 3.11 • OpenCV • Pydantic v2 • uv • ruff
-
 ## Installation
 
 ### From PyPI (recommended)
