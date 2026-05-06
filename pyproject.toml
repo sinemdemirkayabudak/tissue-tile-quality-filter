@@ -12,9 +12,14 @@ dependencies = [
     "opencv-python>=4.8.0",
     "pydantic>=2.0.0",
     "pandas>=2.0.0",
+    "pyarrow>=14.0.0",
     "Pillow>=10.0.0",
     "python-dotenv>=1.0.0",
+    "click>=8.0.0",
 ]
+
+[project.scripts]
+tissue-tile-quality-filter = "tissue_tile_quality_filter:cli"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/tissue_tile_quality_filter"]

@@ -5,7 +5,6 @@ This module provides functions to compute quality metrics including blur detecti
 """
 
 import logging
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -164,47 +163,32 @@ def determine_quality_rating(
 
 
 def compute_tile_quality_metrics(
-    image_path: Path, config: QualityCheckConfig = DEFAULT_CONFIG
+    image: np.ndarray, config: QualityCheckConfig = DEFAULT_CONFIG
 ) -> ImageQualityMetrics:
     """Compute all quality metrics for a tile image.
 
-    Loads image, computes blur score and tissue coverage, determines rating
+    Computes blur score and tissue coverage, determines rating
     using the provided configuration.
 
     Args:
-        image_path: Path to the tile image file.
+        image: Tile image as numpy array (BGR or grayscale).
         config: QualityCheckConfig instance with classification thresholds.
 
     Returns:
         ImageQualityMetrics object with all computed metrics.
 
     Raises:
-        FileNotFoundError: If image file does not exist.
-        ValueError: If image cannot be read or is invalid.
+        ValueError: If image is invalid or empty.
     """
-    logger.info("Processing tile: %s", image_path)
-
-    if not image_path.exists():
-        logger.error("Image file not found: %s", image_path)
-        raise FileNotFoundError(f"Image file not found: {image_path}")
-
-    # Load image preserving original format (grayscale or color)
-    image = cv2.imread(str(image_path), cv2.IMREAD_UNCHANGED)
-    if image is None:
-        # Collect diagnostic info
-        file_size_kb = image_path.stat().st_size / 1024
-        file_ext = image_path.suffix.lower()
-        msg = f"Cannot read image file: {image_path} (ext={file_ext}, size={file_size_kb:.1f}KB)"
-        logger.error(msg)
-        raise ValueError(msg)
+    if image is None or image.size == 0:
+        raise ValueError("Image is None or empty")
 
     blur_score = compute_blur_score(image)
     tissue_coverage = compute_tissue_coverage(image)
     quality_rating = determine_quality_rating(blur_score, tissue_coverage, config=config)
 
-    logger.info(
-        "Tile %s - Blur: %.2f, Tissue: %.1f%%, Rating: %s",
-        image_path.name,
+    logger.debug(
+        "Tile - Blur: %.2f, Tissue: %.1f%%, Rating: %s",
         blur_score,
         tissue_coverage,
         quality_rating,

@@ -57,6 +57,7 @@ class TileMetadata(BaseModel):
         file_path: Absolute path to the image file on disk.
         file_size_mb: File size in megabytes.
         dimensions: Image dimensions as (height, width) tuple in pixels.
+                   None if image could not be loaded (failure case).
         processing_timestamp: ISO 8601 timestamp when the tile was processed.
                              Auto-generated if not provided.
     """
@@ -64,7 +65,9 @@ class TileMetadata(BaseModel):
     tile_id: str = Field(..., description="Unique tile identifier")
     file_path: Path = Field(..., description="Path to tile image")
     file_size_mb: float = Field(..., gt=0.0, description="File size in MB")
-    dimensions: tuple[int, int] = Field(..., description="Image dimensions (height, width)")
+    dimensions: tuple[int, int] | None = Field(
+        None, description="Image dimensions (height, width) or None if load failed"
+    )
     processing_timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
     @model_validator(mode="after")
@@ -75,20 +78,21 @@ class TileMetadata(BaseModel):
         guaranteed execution order.
 
         Checks:
-        - Image dimensions must be positive (height > 0, width > 0)
-        - File path must exist on the filesystem
+        - Image dimensions must be positive (height > 0, width > 0) if present.
+        - File path must exist on the filesystem.
 
         Raises:
-            ValueError: If dimensions are not positive.
+            ValueError: If dimensions are present but not positive.
             FileNotFoundError: If file does not exist.
 
         Returns:
             The validated TileMetadata instance.
         """
-        # Validate dimensions
-        height, width = self.dimensions
-        if height <= 0 or width <= 0:
-            raise ValueError(f"Image dimensions must be positive, got: ({height}, {width})")
+        # Validate dimensions if present (None is acceptable for failures)
+        if self.dimensions is not None:
+            height, width = self.dimensions
+            if height <= 0 or width <= 0:
+                raise ValueError(f"Image dimensions must be positive, got: ({height}, {width})")
 
         # Validate file path exists
         if not self.file_path.exists():
