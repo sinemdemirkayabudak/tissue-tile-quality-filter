@@ -27,6 +27,15 @@ jobs:
       - name: Sync dependencies
         run: uv sync
 
+      - name: Type check with ty
+        run: uv run ty check
+
+      - name: Lint with ruff
+        run: uv run ruff check
+
+      - name: Format check with ruff
+        run: uv run ruff format --check
+
       - name: Run pytest
         run: uv run pytest tests/ -v --cov=src --cov-report=xml
 
@@ -35,9 +44,3 @@ jobs:
         with:
           file: ./coverage.xml
           fail_ci_if_error: false
-
-      - name: Type check with Pylance
-        run: uv run ty check
-
-      - name: Lint with ruff
-        run: uv run ruff check
