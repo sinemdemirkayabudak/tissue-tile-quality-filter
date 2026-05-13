@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "tissue-tile-quality-filter"
-version = "0.1.0"
+version = "0.1.3"
 description = "A Python pipeline for histology image tile quality filtering with blur detection and tissue coverage analysis"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-tissue-tile-quality-filter = "tissue_tile_quality_filter:cli"
+tissue-tile-quality-filter = "tissue_tile_quality_filter.__main__:cli"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/tissue_tile_quality_filter"]
