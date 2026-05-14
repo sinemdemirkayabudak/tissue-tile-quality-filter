@@ -246,7 +246,7 @@ class TestCliTopLevel:
         """Test --version flag."""
         result = cli_runner.invoke(cli, ["--version"])
         assert result.exit_code == 0
-        assert "0.1.3" in result.output
+        assert "0.1.4" in result.output
 
     def test_cli_help(self, cli_runner: CliRunner) -> None:
         """Test --help flag."""

@@ -94,29 +94,29 @@ Run the pipeline in a containerized environment for reproducibility and portabil
 ### Using pre-built image (recommended)
 ```bash
 # Pull from Docker registry
-docker pull sinembudak/tissue-tile-quality-filter:v0.1.3
+docker pull sinembudak/tissue-tile-quality-filter:v0.1.4
 
 # Process tiles using volume mount
 docker run --rm \
   -v ./example_tiles/synthetic_tiles:/input:ro \
   -v ./docker_results:/output:rw \
-  sinembudak/tissue-tile-quality-filter:v0.1.3 \
+  sinembudak/tissue-tile-quality-filter:v0.1.4 \
   process /input --output /output --verbose
 
 # View available commands
-docker run --rm sinembudak/tissue-tile-quality-filter:v0.1.3 --help
+docker run --rm sinembudak/tissue-tile-quality-filter:v0.1.4 --help
 ```
 
 ### Building from source
 ```bash
 # Build the image locally
-docker build -t tissue-tile-quality-filter:v0.1.3 .
+docker build -t tissue-tile-quality-filter:v0.1.4 .
 
 # Run the local build
 docker run --rm \
   -v ./example_tiles/synthetic_tiles:/input:ro \
   -v ./docker_results:/output:rw \
-  tissue-tile-quality-filter:v0.1.3 \
+  tissue-tile-quality-filter:v0.1.4 \
   process /input --output /output --verbose
 ```
 
