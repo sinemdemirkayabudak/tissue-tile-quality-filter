@@ -4,12 +4,13 @@ from pathlib import Path
 
 import click
 
+from . import __version__
 from .exporter import export_all
 from .pipeline import TileQualityFilterPipeline
 
 
 @click.group()
-@click.version_option()
+@click.version_option(__version__)
 def cli() -> None:
     """Tissue Tile Quality Filter - Histology image quality assessment pipeline."""
     pass
