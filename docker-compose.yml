@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: tissue-tile-quality-filter:v0.1.0
+    image: tissue-tile-quality-filter:v0.1.4
     volumes:
       # Mount input tiles directory
       - ./example_tiles:/data/input:ro
